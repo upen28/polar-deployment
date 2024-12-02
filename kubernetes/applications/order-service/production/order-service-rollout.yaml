@@ -1,0 +1,76 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: order-service-rollout
+  labels:
+    app: order-service-rollout
+spec:
+  replicas: 1
+  strategy:
+    canary:
+      maxSurge: "25%"
+      maxUnavailable: 0
+      steps:
+      - setWeight: 10
+      - pause: {}
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "9002"
+    spec:     
+      containers:
+        - name: order-service-container
+          image: ghcr.io/upen28/polar-bookshop/order-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9002
+          env:
+            - name: spring.r2dbc.url
+              value: r2dbc:postgresql://my-release-postgresql:5432/polardb_order
+            - name: spring.r2dbc.username
+              value: postgres
+            - name: spring.r2dbc.password
+              value: sxctWoXesH 
+            - name: polar.catalog-service-uri
+              value: http://catalog-service:80 
+            - name: JAVA_TOOL_OPTIONS
+              value: -javaagent:/workspace/BOOT-INF/lib/opentelemetry-javaagent-2.6.0.jar
+            - name: OTEL_SERVICE_NAME
+              value: edge-service           
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://tempo.monitoring.svc.cluster.local:4318
+            - name: OTEL_METRICS_EXPORTER
+              value: none     
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 9002
+            initialDelaySeconds: 15
+            periodSeconds: 60000
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 9002
+            initialDelaySeconds: 15
+            periodSeconds: 60000     
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  labels:
+    app: order-service
+spec:
+  selector:
+    app: order-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9002
