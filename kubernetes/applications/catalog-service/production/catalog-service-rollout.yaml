@@ -28,7 +28,7 @@ spec:
       containers:
         - name: catalog-service-container
           image: ghcr.io/upen28/polar-bookshop/catalog-service:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 9001
           env:

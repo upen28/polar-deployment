@@ -28,7 +28,7 @@ spec:
       containers:
         - name: order-service-container
           image: ghcr.io/upen28/polar-bookshop/order-service:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 9002
           env:

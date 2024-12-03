@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: edge-service
-  namespace: argocd  
+  name: order-service 
+  namespace: argocd 
 spec:
   project: default
   source:
     repoURL: https://github.com/upen28/polar-deployment.git
-    path: kubernetes/applications/edge-service
+    path: kubernetes/applications/order-service
     targetRevision: HEAD    
   destination:
     server: https://kubernetes.default.svc
