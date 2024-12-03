@@ -5,7 +5,7 @@ metadata:
   labels:
     app: edge-service-rollout
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     canary:
       # Reference to a Service which the controller will update to point to the canary ReplicaSet
