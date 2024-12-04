@@ -32,4 +32,4 @@ patches:
 images:
 - name: edge-service
   newName: ghcr.io/upen28/edge-service
-  newTag: e1d0d166ecd241b0fabb9db27cd7e2205a5fa38e
+  newTag: 7b9856aad014ccece5c886930561d3cb9c11254a
