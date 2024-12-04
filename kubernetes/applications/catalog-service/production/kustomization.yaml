@@ -8,7 +8,7 @@ openapi:
   path: https://raw.githubusercontent.com/argoproj/argo-schema-generator/main/schema/argo_all_k8s_kustomize_schema.json
 
 resources:
-- ../../base
+- github.com/<your_github_username>/catalog-service/k8s?ref=main
 
 namespace: production
 
@@ -26,6 +26,14 @@ patches:
               env:
                 - name: SPRING_PROFILES_ACTIVE
                   value: production
+                - name: JAVA_TOOL_OPTIONS
+                  value: -javaagent:/workspace/BOOT-INF/lib/opentelemetry-javaagent-2.6.0.jar
+                - name: OTEL_SERVICE_NAME
+                  value: edge-service           
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: http://tempo.monitoring.svc.cluster.local:4318
+                - name: OTEL_METRICS_EXPORTER
+                  value: none    
 - patch: |-
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
@@ -33,7 +41,14 @@ patches:
      name: catalog-service-rollout
     spec:
       replicas: 1
+
 images:
 - name: catalog-service
   newName: ghcr.io/upen28/catalog-service
   newTag: b37ad75bb8369b4e1b0828c20de1d25aa94a5249
+
+configMapGenerator:
+  - behavior: merge
+    files:
+      - application-prod.yml
+    name: catalog-config  
