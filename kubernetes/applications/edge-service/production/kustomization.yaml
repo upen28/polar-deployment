@@ -2,46 +2,34 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 configurations:
-  - https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
+- https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
 
 openapi:
   path: https://raw.githubusercontent.com/argoproj/argo-schema-generator/main/schema/argo_all_k8s_kustomize_schema.json
 
 resources:
-  - github.com/upen28/edge-service/k8s?ref=main
+- github.com/upen28/edge-service/k8s?ref=main
 
 namespace: production
 
 patches:
-  - patch: |-
-      apiVersion: argoproj.io/v1alpha1
-      kind: Rollout
-      metadata:
-       name: edge-service-rollout
-      spec:
-        template:
-          spec:
-            containers:
-              - name: edge-service-container
-                env:
-                  - name: SPRING_PROFILES_ACTIVE
-                    value: production
-                  - name: CATALOG_SERVICE_URL
-                    value: http://catalog-service:80/books  
-                  - name: ORDER_SERVICE_URL
-                    value: http://order-service:80/orders
-                  - name: JAVA_TOOL_OPTIONS
-                    value: -javaagent:/workspace/BOOT-INF/lib/opentelemetry-javaagent-2.6.0.jar
-                  - name: OTEL_SERVICE_NAME
-                    value: edge-service           
-                  - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                    value: http://tempo.monitoring.svc.cluster.local:4318
-                  - name: OTEL_METRICS_EXPORTER
-                    value: none    
-  - patch: |-
-      apiVersion: argoproj.io/v1alpha1
-      kind: Rollout
-      metadata:
-       name: edge-service-rollout
-      spec:
-        replicas: 1
+- patch: "apiVersion: argoproj.io/v1alpha1\nkind: Rollout\nmetadata:\n name: edge-service-rollout\nspec:\n
+    \ template:\n    spec:\n      containers:\n        - name: edge-service-container\n
+    \         env:\n            - name: SPRING_PROFILES_ACTIVE\n              value:
+    production\n            - name: CATALOG_SERVICE_URL\n              value: http://catalog-service:80/books
+    \ \n            - name: ORDER_SERVICE_URL\n              value: http://order-service:80/orders\n
+    \           - name: JAVA_TOOL_OPTIONS\n              value: -javaagent:/workspace/BOOT-INF/lib/opentelemetry-javaagent-2.6.0.jar\n
+    \           - name: OTEL_SERVICE_NAME\n              value: edge-service           \n
+    \           - name: OTEL_EXPORTER_OTLP_ENDPOINT\n              value: http://tempo.monitoring.svc.cluster.local:4318\n
+    \           - name: OTEL_METRICS_EXPORTER\n              value: none    "
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
+    metadata:
+     name: edge-service-rollout
+    spec:
+      replicas: 1
+images:
+- name: edge-service
+  newName: ghcr.io/upen28/edge-service
+  newTag: e1d0d166ecd241b0fabb9db27cd7e2205a5fa38e
