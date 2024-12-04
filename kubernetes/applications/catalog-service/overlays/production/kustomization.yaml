@@ -2,35 +2,38 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 configurations:
-  - https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
+- https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
 
 openapi:
   path: https://raw.githubusercontent.com/argoproj/argo-schema-generator/main/schema/argo_all_k8s_kustomize_schema.json
 
 resources:
-  - ../../base
+- ../../base
 
 namespace: production
 
 patches:
-  - patch: |-
-      apiVersion: argoproj.io/v1alpha1
-      kind: Rollout
-      metadata:
-       name: catalog-service-rollout
-      spec:
-        template:
-          spec:
-            containers:
-              - name: catalog-service-container
-                env:
-                  - name: SPRING_PROFILES_ACTIVE
-                    value: production
-  - patch: |-
-      apiVersion: argoproj.io/v1alpha1
-      kind: Rollout
-      metadata:
-       name: catalog-service-rollout
-      spec:
-        replicas: 1
-  
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
+    metadata:
+     name: catalog-service-rollout
+    spec:
+      template:
+        spec:
+          containers:
+            - name: catalog-service-container
+              env:
+                - name: SPRING_PROFILES_ACTIVE
+                  value: production
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
+    metadata:
+     name: catalog-service-rollout
+    spec:
+      replicas: 1
+images:
+- name: catalog-service
+  newName: ghcr.io/upen28/catalog-service
+  newTag: b37ad75bb8369b4e1b0828c20de1d25aa94a5249
