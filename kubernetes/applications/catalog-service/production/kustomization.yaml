@@ -13,27 +13,13 @@ resources:
 namespace: production
 
 patches:
-- patch: |-
-    apiVersion: argoproj.io/v1alpha1
-    kind: Rollout
-    metadata:
-     name: catalog-service-rollout
-    spec:
-      template:
-        spec:
-          containers:
-            - name: catalog-service-container
-              env:
-                - name: SPRING_PROFILES_ACTIVE
-                  value: production
-                - name: JAVA_TOOL_OPTIONS
-                  value: -javaagent:/workspace/BOOT-INF/lib/opentelemetry-javaagent-2.6.0.jar
-                - name: OTEL_SERVICE_NAME
-                  value: edge-service           
-                - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                  value: http://tempo.monitoring.svc.cluster.local:4318
-                - name: OTEL_METRICS_EXPORTER
-                  value: none    
+- patch: "apiVersion: argoproj.io/v1alpha1\nkind: Rollout\nmetadata:\n name: catalog-service-rollout\nspec:\n
+    \ template:\n    spec:\n      containers:\n        - name: catalog-service-container\n
+    \         env:\n            - name: SPRING_PROFILES_ACTIVE\n              value:
+    production\n            - name: JAVA_TOOL_OPTIONS\n              value: -javaagent:/workspace/BOOT-INF/lib/opentelemetry-javaagent-2.6.0.jar\n
+    \           - name: OTEL_SERVICE_NAME\n              value: edge-service           \n
+    \           - name: OTEL_EXPORTER_OTLP_ENDPOINT\n              value: http://tempo.monitoring.svc.cluster.local:4318\n
+    \           - name: OTEL_METRICS_EXPORTER\n              value: none    "
 - patch: |-
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
@@ -45,10 +31,10 @@ patches:
 images:
 - name: catalog-service
   newName: ghcr.io/upen28/catalog-service
-  newTag: b37ad75bb8369b4e1b0828c20de1d25aa94a5249
+  newTag: dddc1c0a614a8c1cd051655b984a35cf8e2d33c9
 
 configMapGenerator:
-  - behavior: merge
-    files:
-      - application-prod.yml
-    name: catalog-config  
+- behavior: merge
+  files:
+  - application-prod.yml
+  name: catalog-config
