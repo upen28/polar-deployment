@@ -33,14 +33,4 @@ patches:
        name: catalog-service-rollout
       spec:
         replicas: 1
-  - patch: |-
-      apiVersion: argoproj.io/v1alpha1
-      kind: Rollout
-      metadata:
-       name: catalog-service-rollout
-      spec:
-        template:
-          spec:
-            containers:
-              - name: catalog-service-container
-              - image: ghcr.io/upen28/polar-bookshop/catalog-service:latest
+  
