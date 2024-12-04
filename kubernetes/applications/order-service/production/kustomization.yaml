@@ -30,4 +30,4 @@ patches:
 images:
 - name: order-service
   newName: ghcr.io/upen28/order-service
-  newTag: ff47ba01828f64f1fd80e86b22d3fd9445862a0c
+  newTag: 6360f4c6354d46bd48bfcec1605a99cf0d14304c
