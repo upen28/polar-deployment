@@ -33,7 +33,7 @@ patches:
                   - name: OTEL_EXPORTER_OTLP_ENDPOINT
                     value: http://tempo.monitoring.svc.cluster.local:4318
                   - name: OTEL_METRICS_EXPORTER
-                    value: none  "
+                    value: none
 - patch: |-
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
