@@ -46,9 +46,3 @@ images:
 - name: catalog-service
   newName: ghcr.io/upen28/catalog-service
   newTag: dddc1c0a614a8c1cd051655b984a35cf8e2d33c9
-
-configMapGenerator:
-- behavior: merge
-  files:
-  - application-prod.yml
-  name: catalog-config
