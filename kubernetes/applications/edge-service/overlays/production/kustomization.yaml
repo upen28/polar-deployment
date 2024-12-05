@@ -40,7 +40,7 @@ patches:
     metadata:
      name: edge-service-rollout
     spec:
-      replicas: 4
+      replicas: 1
 
 images:
 - name: edge-service
