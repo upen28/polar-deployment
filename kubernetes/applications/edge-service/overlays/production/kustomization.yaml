@@ -45,7 +45,7 @@ patches:
 images:
 - name: edge-service
   newName: ghcr.io/upen28/edge-service
-  newTag: 7b9856aad014ccece5c886930561d3cb9c11254a
+  newTag: 69ebb2fdd9522ddad75fc8338153ace23fd9a1b0
 
 configMapGenerator:
   - name: edge-configmap
