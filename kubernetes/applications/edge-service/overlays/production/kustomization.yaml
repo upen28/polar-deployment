@@ -43,8 +43,7 @@ patches:
       replicas: 1
 
 images:
-- name: edge-service
-  newName: ghcr.io/upen28/edge-service
+- name: ghcr.io/upen28/polar-bookshop/edge-service
   newTag: 69ebb2fdd9522ddad75fc8338153ace23fd9a1b0
 
 configMapGenerator:
