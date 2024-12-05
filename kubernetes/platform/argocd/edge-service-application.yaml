@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/upen28/polar-deployment.git
+    repoURL: https://github.com/upen28/polar-deployment-2.git
     path: kubernetes/applications/edge-service
     targetRevision: HEAD    
   destination:
