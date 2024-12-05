@@ -1,2 +1,2 @@
-CATALOG_SERVICE_URL: http://catalog-service:80
+CATALOG_SERVICE_URL: http://catalog-service:81
 ORDER_SERVICE_URL: http://order-service:80
