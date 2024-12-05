@@ -40,7 +40,7 @@ patches:
       metadata:
        name: order-service-rollout
       spec:
-        replicas: 3
+        replicas: 2
 
 images:
 - name: order-service
