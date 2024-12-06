@@ -13,6 +13,6 @@ spec:
       releaseName: tempo
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring-development
+    namespace: monitoring-polarbook-development
   
    

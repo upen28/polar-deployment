@@ -10,7 +10,7 @@ openapi:
 resources:
 - ../../base
 
-namespace: development
+namespace: polarbook-development
 
 patches:
   - patch: |-

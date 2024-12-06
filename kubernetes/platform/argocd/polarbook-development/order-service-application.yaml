@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD    
   destination:
     server: https://kubernetes.default.svc
-    namespace: development
+    namespace: polarbook-development
   syncPolicy:
     automated:
       selfHeal: true

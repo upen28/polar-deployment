@@ -18,5 +18,5 @@ spec:
           enabled: true
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring-development
+    namespace: monitoring-polarbook-development
   
