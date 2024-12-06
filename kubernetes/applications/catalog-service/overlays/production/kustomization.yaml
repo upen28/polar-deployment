@@ -40,7 +40,7 @@ patches:
     metadata:
      name: catalog-service-rollout
     spec:
-      replicas: 2
+      replicas: 1
 
 configMapGenerator:
 -  name: catalog-configmap
