@@ -4,14 +4,14 @@ metadata:
   name: order-service 
   namespace: argocd 
 spec:
-  project: default
+  project: polarbook-development
   source:
     repoURL: https://github.com/upen28/polar-deployment-2.git
-    path: kubernetes/applications/order-service
+    path: kubernetes/applications/order-service/development
     targetRevision: HEAD    
   destination:
     server: https://kubernetes.default.svc
-    namespace: production
+    namespace: development
   syncPolicy:
     automated:
       selfHeal: true

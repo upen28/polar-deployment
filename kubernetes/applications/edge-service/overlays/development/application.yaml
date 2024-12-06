@@ -1,0 +1,6 @@
+CATALOG_SERVICE_URL: http://catalog-service:80
+ORDER_SERVICE_URL: http://order-service:80
+
+logging:
+   pattern:
+      level: "%5p [${spring.application.name},traceID=%X{trace_id}, %X{trace_id},%X{span_id}]"

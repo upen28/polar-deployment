@@ -1,0 +1,60 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+configurations:
+- https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
+
+openapi:
+  path: https://raw.githubusercontent.com/argoproj/argo-schema-generator/main/schema/argo_all_k8s_kustomize_schema.json
+
+resources:
+- ../../base
+
+namespace: development
+
+patches:
+- patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Rollout
+      metadata:
+       name: catalog-service-rollout
+      spec:
+        template:
+          spec:
+            containers:
+              - name: catalog-service-container
+                env:
+                  - name: SPRING_PROFILES_ACTIVE
+                    value: production
+                  - name: JAVA_TOOL_OPTIONS
+                    value: -javaagent:/workspace/BOOT-INF/lib/opentelemetry-javaagent-2.6.0.jar
+                  - name: OTEL_SERVICE_NAME
+                    value: catalog-service           
+                  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                    value: http://tempo.monitoring.svc.cluster.local:4318
+                  - name: OTEL_METRICS_EXPORTER
+                    value: none
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
+    metadata:
+     name: catalog-service-rollout
+    spec:
+      replicas: 1
+
+configMapGenerator:
+-  name: catalog-configmap
+   files:
+   - application.yml
+   options:
+      labels:
+         app: catalog-service
+
+secretGenerator:
+-  name: catalog-secrets
+   literals:
+   - spring.datasource.password=sxctWoXesH
+
+images:
+- name: ghcr.io/upen28/polar-bookshop/catalog-service
+  newTag: 982ba55d55f6d400e4408e8a9f7aed60c985e220   

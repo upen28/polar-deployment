@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: edge-service
-  namespace: argocd  
+  name: catalog-service
+  namespace: argocd
 spec:
-  project: default
+  project: polarbook-production
   source:
     repoURL: https://github.com/upen28/polar-deployment-2.git
-    path: kubernetes/applications/edge-service
+    path: kubernetes/applications/catalog-service/production
     targetRevision: HEAD    
   destination:
     server: https://kubernetes.default.svc
@@ -16,3 +16,4 @@ spec:
     automated:
       selfHeal: true
       prune: true
+      

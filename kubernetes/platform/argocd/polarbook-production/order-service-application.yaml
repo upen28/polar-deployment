@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: order-service 
+  namespace: argocd 
+spec:
+  project: polarbook-production
+  source:
+    repoURL: https://github.com/upen28/polar-deployment-2.git
+    path: kubernetes/applications/order-service/production
+    targetRevision: HEAD    
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

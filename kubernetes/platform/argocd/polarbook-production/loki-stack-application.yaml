@@ -4,7 +4,7 @@ metadata:
   name: loki-stack
   namespace: argocd
 spec:
-  project: default
+  project: polarbook-production
   source:
     chart: loki-stack
     repoURL: https://grafana.github.io/helm-charts
@@ -18,5 +18,5 @@ spec:
           enabled: true
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring
+    namespace: monitoring-production
   
