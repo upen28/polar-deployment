@@ -10,7 +10,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: edge-service-stable.polarbook-production.svc.cluster.local
+              name: edge-service-stable
               port:
                 number: 80                                
 ---
