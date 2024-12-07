@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: edge-service
+  name: edge-service-development
   namespace: argocd  
 spec:
   project: polarbook-development

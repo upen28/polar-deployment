@@ -9,4 +9,3 @@ openapi:
 
 resources:
   - edge-service-rollout.yaml
-  - api-gateway-ingress.yaml  
