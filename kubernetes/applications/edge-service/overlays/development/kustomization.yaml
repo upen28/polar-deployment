@@ -9,6 +9,7 @@ openapi:
 
 resources:
 - ../../base
+- api-gateway-ingress.yaml
 
 namespace: polarbook-development
 

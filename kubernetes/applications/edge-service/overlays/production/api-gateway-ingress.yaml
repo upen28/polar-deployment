@@ -6,14 +6,7 @@ spec:
   rules:
    - http:
       paths:
-        - path: /polarbook/dev
-          pathType: Prefix
-          backend:
-            service:
-              name: edge-service-stable.polarbook-development.svc.cluster.local
-              port:
-                number: 80
-        - path: /polarbook/
+        - path: /
           pathType: Prefix
           backend:
             service:
