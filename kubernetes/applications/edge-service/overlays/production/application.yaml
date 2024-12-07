@@ -4,3 +4,62 @@ ORDER_SERVICE_URL: http://order-service:80
 logging:
    pattern:
       level: "%5p [${spring.application.name},traceID=%X{trace_id}, %X{trace_id},%X{span_id}]"
+
+cloud:
+      gateway:
+         httpclient:
+            connect-timeout: 15000
+            response-timeout: 15s
+            pool:
+               type: elastic
+               max-idle-time: 15s
+               max-life-time: 60s
+
+         routes:
+         -  id: catalog-route
+            uri: ${CATALOG_SERVICE_URL:http://localhost:9001}/books
+            predicates:
+            #- Path=/books/**
+            - Host=**.polarbook.com
+            filters:
+            -  name: CircuitBreaker
+               args:
+                  name: catalogCircuitBreaker
+                  fallbackUri: forward:/catalog-fallback
+                  statusCodes:
+                  - NOT_FOUND
+                  - INTERNAL_SERVER_ERROR
+            -  name: Retry
+               args:
+                  retries: 3
+                  methods: GET
+                  series: SERVER_ERROR
+                  exceptions: java.net.ConnectException
+                  backoff:
+                     firstBackoff: 5s
+                     maxBackOff: 40s
+                     factor: 2
+                     basedOnPreviousValue: false
+         -  id: order-route
+            uri: ${ORDER_SERVICE_URL:http://localhost:9002}/orders
+            predicates:
+            - Path=/books/**
+            - Host=**.polarbook.com,**.polarbook-dev.com
+            filters:
+            -  name: CircuitBreaker
+               args:
+                  name: orderCircuitBreaker
+                  statusCodes:
+                  - NOT_FOUND
+                  - INTERNAL_SERVER_ERROR
+            -  name: Retry
+               args:
+                  retries: 3
+                  methods: GET
+                  series: SERVER_ERROR
+                  exceptions: java.net.ConnectException
+                  backoff:
+                     firstBackoff: 5s
+                     maxBackOff: 40s
+                     factor: 2
+                     basedOnPreviousValue: false      

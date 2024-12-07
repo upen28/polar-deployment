@@ -4,7 +4,8 @@ metadata:
   name: polar-bookshop-ingress
 spec:
   rules:
-   - http:
+   - host: "polarbook.com"
+     http:
       paths:
         - path: /
           pathType: Prefix
