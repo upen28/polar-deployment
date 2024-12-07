@@ -8,8 +8,8 @@ openapi:
   path: https://raw.githubusercontent.com/argoproj/argo-schema-generator/main/schema/argo_all_k8s_kustomize_schema.json
 
 resources:
-- ../../base
 - api-gateway-ingress.yaml
+- edge-service-rollout.yaml
 
 namespace: polarbook-production
 
