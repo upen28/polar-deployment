@@ -14,12 +14,13 @@ jobs:
       APP_IMAGE: ${{ github.event.client_payload.app_image }}
       APP_NAME: ${{ github.event.client_payload.app_name }}
       APP_VERSION: ${{ github.event.client_payload.app_version }}
+      APP_DIR_NAME: ${{ github.event.client_payload.app-dir-name }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
       - name: Update image version
         run: |
-          cd kubernetes/applications/${{ env.APP_NAME }}/overlays/production
+          cd kubernetes/applications/${{ env.APP_NAME }}/overlays/${{ env.APP_DIR_NAME }}
           sed -i 's/newTag:\s\+\w*/newTag: ${{ env.APP_VERSION }}/' kustomization.yaml
       - name: Commit updated manifests
         uses: stefanzweifel/git-auto-commit-action@v5
