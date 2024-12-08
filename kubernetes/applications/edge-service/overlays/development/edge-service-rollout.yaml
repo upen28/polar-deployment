@@ -18,7 +18,7 @@ spec:
           # This ingress will be cloned with a new name, in order to achieve NGINX traffic splitting.
           stableIngress: polar-bookshop-ingress
       steps:
-        - setWeight: 50
+        - setWeight: 20
         - pause: {}
   selector:
     matchLabels:
