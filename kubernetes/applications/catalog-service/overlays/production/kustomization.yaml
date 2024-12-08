@@ -57,4 +57,4 @@ secretGenerator:
 
 images:
 - name: ghcr.io/upen28/polar-bookshop/catalog-service
-  newTag: 0948537b5c62071f77ab881f2c4d4e45f346978e   
+  newTag: eb032224d2e52c090bfb085975d45f2b711c9e7c   
