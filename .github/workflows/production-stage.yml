@@ -12,8 +12,8 @@ jobs:
       contents: write
     env:
       APP_IMAGE: ${{ github.event.client_payload.app_image }}
-      APP_NAME: ${{ github.event.client_payload.app_name }}
       APP_VERSION: ${{ github.event.client_payload.app_version }}
+      APP_NAME: ${{ github.event.client_payload.app_name }}
       APP_DIR_NAME: ${{ github.event.client_payload.app-dir-name }}
     steps:
       - name: Checkout source code
