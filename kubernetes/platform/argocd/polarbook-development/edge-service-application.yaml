@@ -6,8 +6,8 @@ metadata:
 spec:
   project: polarbook-development
   source:
-    repoURL: https://github.com/upen28/polar-deployment-2.git
-    path: kubernetes/applications/edge-service/development
+    repoURL: https://github.com/upen28/edge-service-gitops.git
+    path: kubernetes/edge-service/dev
     targetRevision: HEAD    
   destination:
     server: https://kubernetes.default.svc

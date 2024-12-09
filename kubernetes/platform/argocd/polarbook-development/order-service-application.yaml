@@ -6,8 +6,8 @@ metadata:
 spec:
   project: polarbook-development
   source:
-    repoURL: https://github.com/upen28/polar-deployment-2.git
-    path: kubernetes/applications/order-service/development
+    repoURL: https://github.com/upen28/order-service-gitops.git
+    path: kubernetes/order-service/dev
     targetRevision: HEAD    
   destination:
     server: https://kubernetes.default.svc
