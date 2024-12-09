@@ -4,7 +4,7 @@ metadata:
   name: tempo
   namespace: argocd
 spec:
-  project: monitoring-polarbook
+  project: polarbook-monitoring
   source:
     chart: tempo
     repoURL: https://grafana.github.io/helm-charts
@@ -13,6 +13,6 @@ spec:
       releaseName: tempo
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring-polarbook
+    namespace: polarbook-monitoring
   
    
